@@ -37,7 +37,7 @@ public class TaskList {
         if (event.length < EVENT_COMMAND_LENGTH || event[0].trim().equals("") || event[1].trim().equals("") || event[2].trim().equals("")) {
             throw new InsufficientInputException("Event command has insufficient input, please try again.");
         }
-        taskListArray.add(new Event(event[0].trim(), event[1].trim(), event[2].trim()));
+        taskListArray.add(new Event(event[0], event[1], event[2]));
         taskListArray.get(Task.maxTaskNumber).setTaskType("event");
         Task.maxTaskNumber++;
         System.out.printf(UI.HorizontalLine + "Event added: %s (from: %s to: %s)\n" + UI.HorizontalLine, event[0], event[1], event[2]);
@@ -51,7 +51,7 @@ public class TaskList {
         if (deadline.length < DEADLINE_COMMAND_LENGTH || deadline[0].trim().equals("") || deadline[1].trim().equals("")) {
             throw new InsufficientInputException("Deadline command has insufficient input, please try again.");
         }
-        taskListArray.add(new Deadline(deadline[0], LocalDate.parse(deadline[1].trim())));
+        taskListArray.add(new Deadline(deadline[0], LocalDate.parse(deadline[1])));
         taskListArray.get(Task.maxTaskNumber).setTaskType("deadline");
         Task.maxTaskNumber++;
         System.out.printf(UI.HorizontalLine + "Deadline added: %s (by: %s)\n" + UI.HorizontalLine, deadline[0],
@@ -108,21 +108,6 @@ public class TaskList {
             Task.maxTaskNumber--;
             System.out.printf(UI.HorizontalLine + "Task %d has been deleted\n" + UI.HorizontalLine, taskIndex+1);
         }
-    }
-    public void findTask(String[] inputWords) throws InsufficientInputException{
-        if (inputWords.length < INPUT_LENGTH || inputWords[1].trim().equals("")) {
-            throw new InsufficientInputException("Please specify a keyword");
-        }
-        System.out.println(UI.HorizontalLine + "Tasks with matching keywords:\n");
-        String keyword = inputWords[1];
-        for(int i = 0; i < Task.maxTaskNumber; i ++) {
-            String taskName = taskListArray.get(i).getTaskName();
-            if(taskName.contains(keyword)) {
-                System.out.printf("%d.", i + 1);
-                taskListArray.get(i).getTaskStatus();
-            }
-        }
-        System.out.println(UI.HorizontalLine);
     }
     public void readData(File f) throws IOException {
         Scanner s = new Scanner(f);

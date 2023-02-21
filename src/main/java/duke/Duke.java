@@ -51,9 +51,6 @@ public class Duke {
                 case "delete":
                     taskList.deleteTask(inputWords);
                     break;
-                case "find":
-                    taskList.findTask(inputWords);
-                    break;
                 default:
                     throw new UnkownCommandException("Unknown command, please try again.");
                 }
